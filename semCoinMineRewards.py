@@ -57,6 +57,18 @@ class BlockChain():
         print('BLock is mined you got reward', self.mining_reward)
         self.chain.append(block)
         self.pendingTransactions=[Transaction(None, mining_reward_address, self.mining_reward)]
+
+    def createTransaction(self, T):
+        self.pendingTransactions.append(T)
+    def getBalance(self, address):
+        balance = 0
+        for b in self.chain:
+            for t in b.transactionsList:
+                if t.to_address == address:
+                    balance += t.amount
+                if t.from_address == address:
+                    balance -= t.amount
+        return balance
     def isChainValid(self):
         for i in range(1, len(self.chain)):
             prevb = self.chain[i-1]
@@ -72,15 +84,13 @@ class BlockChain():
 
 
 semCoin = BlockChain()
-print('Adding the first block')
-semCoin.addBlock(Block(1, '05/20/2017', 100))
-print('Adding the second block')
-semCoin.addBlock(Block(2, '05/21/2017', 20))
-
-# for b in semCoin.chain:
-#     print(b)
-
-# print(semCoin.isChainValid())
-
-
+# print('Adding the first block')
+# semCoin.addBlock(Block(1, '05/20/2017', 100))
+# print('Adding the second block')
+# semCoin.addBlock(Block(2, '05/21/2017', 20))
+semCoin.createTransaction(Transaction('address1', 'address2', 100))
+semCoin.createTransaction(Transaction('address2', 'address1', 50))
+print('Starting mining')
+semCoin.minePendingTransaction('semaddress')
+print('Sem miner balance is ', semCoin.getBalance('semaddress'))
 

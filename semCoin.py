@@ -54,6 +54,7 @@ class BlockChain():
 semCoin = BlockChain()
 semCoin.addBlock(Block(1, '05/20/2017', 100))
 semCoin.addBlock(Block(2, '05/21/2017', 20))
+semCoin.chain[1].transaction = 333
 
 for b in semCoin.chain:
     print(b)

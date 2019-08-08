@@ -55,6 +55,7 @@ semCoin = BlockChain()
 semCoin.addBlock(Block(1, '05/20/2017', 100))
 semCoin.addBlock(Block(2, '05/21/2017', 20))
 semCoin.chain[1].transaction = 333
+semCoin.chain[1].hash = semCoin.chain[1].calcHash()
 
 for b in semCoin.chain:
     print(b)

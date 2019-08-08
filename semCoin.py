@@ -18,6 +18,7 @@ class Block():
         string += 'tstamp: ' + str(self.tstamp) + '\n'
         string += 'transaction: ' + str(self.transaction) + '\n'
         string += 'prevhash: ' + str(self.prevhash) + '\n'
+        string += 'hash: ' + str(self.hash) + '\n'
 
         return string
 
@@ -36,12 +37,28 @@ class BlockChain():
         newBlock.hash = newBlock.calcHash()
         self.chain.append(newBlock)
 
+    def isChainValid(self):
+        for i in range(1, len(self.chain)):
+            prevb = self.chain[i-1]
+            currb = self.chain[i]
+            if(currb.hash != currb.calcHash()):
+                print('Invalid block')
+                return False
+            if(currb.prevhash != prevb.hash):
+                print('Invalid chain')
+                return False
+        return True
+        
+
+
 semCoin = BlockChain()
 semCoin.addBlock(Block(1, '05/20/2017', 100))
 semCoin.addBlock(Block(2, '05/21/2017', 20))
 
 for b in semCoin.chain:
     print(b)
+
+print(semCoin.isChainValid())
 
 
 

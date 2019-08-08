@@ -94,3 +94,8 @@ print('Starting mining')
 semCoin.minePendingTransaction('semaddress')
 print('Sem miner balance is ', semCoin.getBalance('semaddress'))
 
+semCoin.createTransaction(Transaction('address1', 'address2', 200))
+semCoin.createTransaction(Transaction('address2', 'address1', 150))
+print('Starting mining again')
+semCoin.minePendingTransaction('semaddress')
+print('Sem miner balance is ', semCoin.getBalance('semaddress'))

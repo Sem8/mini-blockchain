@@ -14,6 +14,19 @@ class Block():
         print('prevhash', self.prevhash)
         print('hash', self.hash)
 
-bblock = Block(1, '01/02/2018', 100)
+# bblock = Block(1, '01/02/2018', 100)
+# bblock.printHashes()
+
+class BlockChain():
+    def __init__(self):
+        self.chain = [self.generateGenesisBlock(),]
+    def generateGenesisBlock(self):
+        return Block(0, '01/01/2017', 'Genesis Block')
+    def getLastBlock(self):
+        return self.chain[-1]
+    def addBlock(self, newBlock):
+        newBlock.prevhash = self.getLastBlock().hash
+        newBlock.hash = newBlock.calcHash()
+        self.chain.append(newBlock)
 
 
